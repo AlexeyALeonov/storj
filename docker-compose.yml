@@ -1,0 +1,42 @@
+version: '3'
+services:
+  redis:
+    image: "redis:alpine"
+  storj:
+    build: .
+    image: "storj:latest"
+    deploy:
+      replicas: 0
+  satellite:
+    build: ./satellite
+    image: satellite:latest
+    depends_on:
+      - redis
+  gateway:
+    build: ./gateway
+    image: gateway:latest
+    deploy:
+      replicas: 0
+    depends_on:
+      - satellite
+  storagenode:
+    build: ./storagenode
+    image: storagenode:latest
+    deploy:
+      replicas: 100
+    depends_on:
+      - satellite
+  uplink:
+    build: ./uplink
+    image: uplink:latest
+    volumes:
+      - "./:/storj"
+    deploy:
+      replicas: 0
+  aws:
+    build: ./aws
+    image: aws:latest
+    volumes:
+      - "./:/aws"
+    deploy:
+      replicas: 0
