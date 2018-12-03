@@ -4,9 +4,11 @@ Storj v3
 # Prerequisites 
 Docker, see https://docs.docker.com/get-started/
 
-# Start the network with docker-compose
+# Clone a repo
     git clone https://github.com/AlexeyALeonov/storj.git
     cd storj
+
+# Start the network with docker-compose
     docker-compose up -d --scale storagenode=100
 
 ## Using the test network with docker-compose
@@ -25,8 +27,9 @@ Docker, see https://docs.docker.com/get-started/
     docker-compose down
 
 # Deploy to the Docker swarm
+    docker-compose build
     docker swarm init
-    docker stack deploy -c docker-compose.yml v3
+    docker stack deploy -c ./docker-compose.yml v3
 
 ## Using the test network with swarm
 ### With uplink
