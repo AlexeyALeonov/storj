@@ -51,7 +51,6 @@ take an ID of the container and use it to execute commands
 take an ID of the container and use it to execute commands
 
     docker exec -it <ID> sh
-    /aws# aws s3  mb sj://test-bucket
     /aws# aws s3 --endpoint-url http://gateway:7777 mb s3://new-bucket
     /aws# aws s3 --endpoint-url http://gateway:7777 cp Video/StorjIntro.mp4 s3://new-bucket/StorjIntro.mp4
     /aws# aws s3 --endpoint-url http://gateway:7777 cp s3://new-bucket/StorjIntro.mp4 StorjIntro.mp4
