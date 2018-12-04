@@ -61,3 +61,6 @@ take an ID of the container and use it to execute commands
 
 ## Remove the test network
     docker stack rm v3
+
+## Leave the swarm
+    docker swarm leave --force
