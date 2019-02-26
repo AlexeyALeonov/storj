@@ -1,9 +1,12 @@
 #!/usr/bin/env sh
 if [ -z "$satellite_address" ]; then
-    satellite_address=satellite
+    satellite_address="satellite:7778"
 fi
-storagenode setup --base-path $HOME/.storj/storagenode --ca.difficulty 0 --metrics.app_suffix "-test" \
-        --log.caller --log.development --log.stack --log.level debug
-sed -i s/'address: :7777'/'address: '$(hostname)':7777'/g $HOME/.storj/storagenode/config.yaml
-sed -i s/'bootstrap-dev.storj.io:8080'/$satellite_address':7778'/g $HOME/.storj/storagenode/config.yaml
-storagenode run --config $HOME/.storj/storagenode/config.yaml
+identity create storagenode --difficulty 0
+storagenode setup --log.caller --log.development --log.stack --log.level debug \
+        --metrics.app-suffix "-test" \
+        --kademlia.external-address $(hostname):7777 \
+        --kademlia.bootstrap-addr $satellite_address \
+        --kademlia.operator.email user@example.com \
+        --kademlia.operator.wallet 0x8D7a2e3C16d029F838d1F6327449fd46B5daf881
+storagenode run

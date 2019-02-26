@@ -1,4 +1,6 @@
 FROM storj:latest
-ARG satellite_address=satellite
+ARG satellite_address="satellite:7778"
+EXPOSE 7777
 ADD start.sh /storj/
-CMD ["/storj/start.sh"]
+RUN chmod +x /storj/start.sh
+CMD [ "/storj/start.sh" ]
