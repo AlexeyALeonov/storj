@@ -1,0 +1,24 @@
+version: '3'
+services:
+  storj-sim:
+    build: 
+      context: .
+    image: "storj-sim:latest"
+    ports:
+      - "9000:9000"
+    volumes:
+      - "~/:/storj"
+  aws:
+    build:
+      context: ../aws
+      args:
+        aws_access_key_id: "2grrSdzf6tMNNejfKzkaLSwfQAzr"
+        aws_secret_access_key: "3J9N4J5PVhit2892NkNesKV3DoXM"
+    image: aws:sim
+    entrypoint: /bin/sh
+    stdin_open: true
+    tty: true
+    volumes:
+      - "~/:/aws"
+    depends_on:
+      - storj-sim
